@@ -2326,7 +2326,7 @@ MonoBehaviour:
   fadeDuration: 1
   YardsceneName: SampleScene
   DensceneName: Den
-  playerEnergy: {fileID: 0}
+  playerEnergy: {fileID: 1252234575}
   requiredEnergy: 0
 --- !u!1001 &336738983
 PrefabInstance:

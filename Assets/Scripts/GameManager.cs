@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public int requiredEnergy;
     public int DrainEnergyByDistance() => requiredEnergy;
 
+    public static GameManager Instance { get; private set; }
+
     [Obsolete]
 
     private void Awake()
@@ -46,7 +48,17 @@ public class GameManager : MonoBehaviour
             c.a = 0f;
             fadeImage.color = c;
         }
+
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+    
     public void Start()
     {
         saveData = new SaveData(); // Reset all values
@@ -87,7 +99,7 @@ public class GameManager : MonoBehaviour
         if (hasTriggeredSceneChange)
             return;
         
-        if (SceneManager.GetActiveScene().buildIndex == 1
+        if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2
             && playerEnergy != null
             && playerEnergy.currentEnergy <= 0)
         {
@@ -127,7 +139,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeToBlackThenLoadThenFade(int sceneIndex)
+    public IEnumerator FadeToBlackThenLoadThenFade(int sceneIndex)
     {
         isFading = true;
 

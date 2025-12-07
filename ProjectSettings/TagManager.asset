@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Scran
+  - DenExit
   layers:
   - Default
   - TransparentFX
