@@ -13,12 +13,12 @@ public class PlayerEnergy : MonoBehaviour
 
     private Vector3 lastPosition;
 
-    void Start()
+    void Awake()
     {
-        
-        lastPosition = transform.position;
         currentEnergy = maxEnergy;
-    }
+        lastPosition = transform.position;
+    } 
+
 
     void Update()
     {
@@ -38,5 +38,10 @@ public class PlayerEnergy : MonoBehaviour
 
         // Update last position for next frame
         lastPosition = transform.position;
+    }
+
+    public void ResetEnergy()
+    {
+    currentEnergy = maxEnergy;
     }
 }

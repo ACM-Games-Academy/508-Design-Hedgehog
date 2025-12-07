@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     private bool isFading = false;
 
+    private bool checkEnergy = false;
+
     public SaveData saveData = new SaveData();
     private string savePath;
 
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     public PlayerEnergy playerEnergy;
 
     private bool hasTriggeredSceneChange = false;
+
+    private bool energyResetThisScene = false;
 
     // The number the energy bar reachs to reset back to the Den scene
     public int requiredEnergy;
@@ -57,6 +61,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        
     }
     
     public void Start()
@@ -73,8 +79,10 @@ public class GameManager : MonoBehaviour
         if (playerEnergy == null)
              playerEnergy = FindObjectOfType<PlayerEnergy>();
 
-    }
+        playerEnergy = FindObjectOfType<PlayerEnergy>();
+        checkEnergy = true;
 
+    }
 
     private void SaveToJson()
     {
@@ -94,12 +102,26 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-         Debug.Log("Current Scene: " + SceneManager.GetActiveScene());
+        if (!checkEnergy)
+        return;
+
+        if (SceneManager.GetActiveScene().buildIndex == 2 && !energyResetThisScene)
+        {
+            playerEnergy = FindObjectOfType<PlayerEnergy>();
+            if (playerEnergy != null)
+            {
+                playerEnergy.currentEnergy = playerEnergy.maxEnergy; // Reset energy
+            }
+            energyResetThisScene = true; // mark that we've done the reset
+        }
+
+
+        Debug.Log("Current Scene: " + SceneManager.GetActiveScene());
 
         if (hasTriggeredSceneChange)
             return;
         
-        if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2
+        if ((SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
             && playerEnergy != null
             && playerEnergy.currentEnergy <= 0)
         {
@@ -153,6 +175,21 @@ public class GameManager : MonoBehaviour
         while (!op.isDone)
         {
             yield return null;
+        }
+
+        
+        playerEnergy = FindObjectOfType<PlayerEnergy>();
+       
+        if (playerEnergy != null)
+        {
+            playerEnergy.currentEnergy = playerEnergy.maxEnergy;
+        
+            EnergyBarUI energyUI = FindObjectOfType<EnergyBarUI>();
+        if (energyUI != null)
+            {
+            energyUI.energySlider.maxValue = playerEnergy.maxEnergy;
+            energyUI.energySlider.value = playerEnergy.currentEnergy;
+            }
         }
 
         // Make sure image is still black after scene load
