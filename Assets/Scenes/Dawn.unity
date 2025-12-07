@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 842540148}
+  m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5489,6 +5489,7 @@ MonoBehaviour:
   YardsceneName: SampleScene
   DensceneName: Den
   playerEnergy: {fileID: 1252234575}
+  KidsFedAudio: {fileID: 0}
   requiredEnergy: 0
 --- !u!4 &785352252
 Transform:

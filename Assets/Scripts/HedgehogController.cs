@@ -1,4 +1,4 @@
-using UnityEditor.U2D;
+using UnityEditor;
 using UnityEngine;
 
 public class HedgehogController : MonoBehaviour
@@ -21,7 +21,7 @@ public class HedgehogController : MonoBehaviour
 
     private bool rollingEnabled = false;
 
-    public CamZooms camZooms;
+    //public CamZooms camZooms;
 
     private MeshRenderer meshRendererBall;
     public MeshRenderer meshRendererHog0;
@@ -59,14 +59,14 @@ public class HedgehogController : MonoBehaviour
             ToggleRotationContrainsts();
             rollingEnabled = !rollingEnabled;
             
-            if (camZooms != null) camZooms.ToggleZoomIn();
+            //if (camZooms != null) camZooms.ToggleZoomIn();
 
             rollingAudio.PlayOneShot(rollingAudio.clip);
 
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
-            if (camZooms != null) camZooms.ToggleZoomOut();
+            //if (camZooms != null) camZooms.ToggleZoomOut();
 
             rb.constraints |= RigidbodyConstraints.FreezeRotation;
             this.transform.rotation = initialRotation;
