@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Settings")]
     [Tooltip("The name of the scene where the key collection happens.")]
-    public string YardsceneName = "SampleScene";
+    public string YardsceneName = "Dawn";
     [Tooltip("The name of the scene to load once conditions are met.")]
     public string DensceneName = "Den";
 
@@ -84,39 +84,21 @@ public class GameManager : MonoBehaviour
     {
          Debug.Log("Current Scene: " + SceneManager.GetActiveScene());
 
-      // If player presses X while in the Den scene, reset the UI scran count
-       if (Input.GetKeyDown(KeyCode.X) && SceneManager.GetActiveScene().name == DensceneName)
-       {
-           Debug.Log("X pressed in Den scene — resetting scran UI.");
-            if (UICounter.Instance != null)
-                UICounter.Instance.ResetScran();
-       }
-
-      // Check if energy is at 1 and in the yard scene.
-      if (playerEnergy.currentEnergy == 1 && SceneManager.GetActiveScene().name == "SampleScene") //OR DAWN
-        {
-            Debug.Log("Condition met! Loading WinScene..."); // Debug message before loading
-            SceneManager.LoadScene("Den");
-        }
-        // If we're in the yard scene and player runs out of energy, load the Den.
-       if (!hasTriggeredSceneChange
-            && SceneManager.GetActiveScene().name == YardsceneName
+        if (hasTriggeredSceneChange)
+            return;
+        
+        if (SceneManager.GetActiveScene().buildIndex == 1
             && playerEnergy != null
             && playerEnergy.currentEnergy <= 0)
         {
-            Debug.Log("Player energy depleted. Loading " + DensceneName + "...");
+            Debug.Log("Energy is 0, fade into Den scene");
             hasTriggeredSceneChange = true;
 
-
-
-            StartCoroutine(FadeToBlackThenLoadThenFade(2));
-            //SceneManager.LoadScene(DensceneName);
-
+            StartCoroutine(FadeToBlackThenLoadThenFade(3));
+            // loads the den scene by fade. 
         }
-
-
-        //when in the den scene, if player collides with the door, load the Dawn scene. 
-    }
+            
+        }
 
     IEnumerator Fade(float startAlpha, float endAlpha)
     {

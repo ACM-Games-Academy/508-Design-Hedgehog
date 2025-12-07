@@ -12,8 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Dawn.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/DenOLD.unity
-    guid: 5ce767e6cce502c4dbeca07cd9aec8d5
+    path: Assets/Scenes/Dusk.unity
+    guid: f7d3fe839f1461b47a557736d096aa14
+  - enabled: 1
+    path: Assets/Scenes/Den.unity
+    guid: 5c3436803f7916648b7742a9fa609085
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
