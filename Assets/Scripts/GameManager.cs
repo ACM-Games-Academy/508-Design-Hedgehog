@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private bool energyResetThisScene = false;
 
+    public AudioSource KidsFedAudio;
+
     // The number the energy bar reachs to reset back to the Den scene
     public int requiredEnergy;
     public int DrainEnergyByDistance() => requiredEnergy;
@@ -138,6 +140,8 @@ public class GameManager : MonoBehaviour
            Debug.Log("X pressed in Den scene — resetting scran UI.");
             if (UICounter.Instance != null)
                 UICounter.Instance.ResetScran();
+            AudioSource KidsFedAudio = GetComponent<AudioSource>();
+            KidsFedAudio.Play();
         }
     }
 

@@ -17,6 +17,8 @@ public class HedgehogController : MonoBehaviour
     private Quaternion initialRotation;
     public bool IsRolling => rollingEnabled;
 
+    public AudioSource rollingAudio;
+
     private bool rollingEnabled = false;
 
     public CamZooms camZooms;
@@ -59,6 +61,8 @@ public class HedgehogController : MonoBehaviour
             
             if (camZooms != null) camZooms.ToggleZoomIn();
 
+            rollingAudio.PlayOneShot(rollingAudio.clip);
+
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
@@ -73,6 +77,8 @@ public class HedgehogController : MonoBehaviour
             meshRendererHog1.enabled = true;
             meshRendererHog2.enabled = true;
             meshRendererHog3.enabled = true;
+
+            rollingAudio.Stop();
         }
 
 
