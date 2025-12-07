@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Settings")]
     [Tooltip("The name of the scene where the key collection happens.")]
-    public string YardsceneName = "SampleScene";
+    public string YardsceneName = "Dawn";
     [Tooltip("The name of the scene to load once conditions are met.")]
     public string DensceneName = "Den";
 
@@ -84,28 +84,21 @@ public class GameManager : MonoBehaviour
     {
          Debug.Log("Current Scene: " + SceneManager.GetActiveScene());
 
-      // Check if energy is at 1 and in the yard scene.
-      if (playerEnergy.currentEnergy == 1 && SceneManager.GetActiveScene().name == "SampleScene")
-        {
-            Debug.Log("Condition met! Loading WinScene..."); // Debug message before loading
-            SceneManager.LoadScene("Den");
-        }
-        // If we're in the yard scene and player runs out of energy, load the Den.
-       if (!hasTriggeredSceneChange
-            && SceneManager.GetActiveScene().name == YardsceneName
+        if (hasTriggeredSceneChange)
+            return;
+        
+        if (SceneManager.GetActiveScene().buildIndex == 1
             && playerEnergy != null
             && playerEnergy.currentEnergy <= 0)
         {
-            Debug.Log("Player energy depleted. Loading " + DensceneName + "...");
+            Debug.Log("Energy is 0, fade into Den scene");
             hasTriggeredSceneChange = true;
 
-
-
             StartCoroutine(FadeToBlackThenLoadThenFade(2));
-            //SceneManager.LoadScene(DensceneName);
-
+            // loads the den scene by fade. 
         }
-    }
+            
+        }
 
     IEnumerator Fade(float startAlpha, float endAlpha)
     {
@@ -137,7 +130,7 @@ public class GameManager : MonoBehaviour
        // yield return new WaitForSeconds(1);
 
         // 2. Load scene
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneIndex);
+        AsyncOperation op = SceneManager.LoadSceneAsync(2);
         while (!op.isDone)
         {
             yield return null;
