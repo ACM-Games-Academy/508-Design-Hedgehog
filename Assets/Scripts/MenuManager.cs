@@ -22,6 +22,12 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        SceneManager.LoadScene(4);
+
+    }
+
+    public void DawnBegins()
+    {
         SceneManager.LoadScene(1);
 
     }
