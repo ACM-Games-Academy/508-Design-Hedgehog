@@ -97,8 +97,15 @@ public class GameManager : MonoBehaviour
             StartCoroutine(FadeToBlackThenLoadThenFade(3));
             // loads the den scene by fade. 
         }
-            
+             
+        // If player presses X while in the Den scene, reset the UI scran count
+        if (Input.GetKeyDown(KeyCode.X) && SceneManager.GetActiveScene().buildIndex == 3)
+        {
+           Debug.Log("X pressed in Den scene — resetting scran UI.");
+            if (UICounter.Instance != null)
+                UICounter.Instance.ResetScran();
         }
+    }
 
     IEnumerator Fade(float startAlpha, float endAlpha)
     {
